@@ -6,6 +6,7 @@ import moment from 'moment'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
+import ChatRooms from '../../data/ChatRooms';
 
 
 export type ChatListItemProps ={
@@ -15,26 +16,17 @@ export type ChatListItemProps ={
 const ChatListItem = (props: ChatListItemProps) => {
     const{chatRoom} = props;
     const [otherUser, setOtherUser] = useState(null);
-    
+    console.log(chatRoom)
 
     useEffect(()=>{
         const getOtherUser = async () =>{
             const userInfo = await Auth.currentAuthenticatedUser();
             
-            console.log("chatroom: ",chatRoom.chatRoomUsers.items.length); 
             for (var i = 0; i <= chatRoom.chatRoomUsers.items.length; i++) {
                 if(chatRoom.chatRoomUsers.items[i].user.id != userInfo.attributes.sub){
                     setOtherUser(chatRoom.chatRoomUsers.items[i].user);
                 }
               }
-            
-/* 
-           if(chatRoom.chatRoomUsers.items[0].user.id === userInfo.attributes.sub){
-                setOtherUser(chatRoom.chatRoomUsers.items[1].user);
-            }else{
-                setOtherUser(chatRoom.chatRoomUsers.items[0].user);
-            }
-            console.log("chatroom: ",chatRoom);*/
         }
         getOtherUser()
     },[])

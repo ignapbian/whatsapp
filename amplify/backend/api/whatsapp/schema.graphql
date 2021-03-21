@@ -22,6 +22,8 @@ type ChatRoom @model{
   id:ID!
   chatRoomUsers : [ChatRoomUser] @connection(keyName:"byChatRoom",fields:["id"])
   messages:[Message] @connection(keyName:"byChatRoom",fields:["id"])
+  lastMessageID:ID
+  lastMessage: Message @connection(fields:["lastMessageID"])
 }
 type Message
 @model
@@ -38,3 +40,4 @@ type Message
   user: User @connection(fields:["userID"])
   chatRoom: ChatRoom @connection(fields:["chatRoomID"])
 }
+
