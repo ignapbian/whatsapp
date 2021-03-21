@@ -5,6 +5,8 @@ import styles from './style'
 import moment from 'moment'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { API, graphqlOperation ,Auth} from 'aws-amplify';
+import { createChatRoom, createChatRoomUser } from '../../src/graphql/mutations';
 
 
 export type ContactListItemProps ={
@@ -16,8 +18,27 @@ const ContactListItem = (props: ContactListItemProps) => {
 
     const navigation = useNavigation();
 
-    const onCLick = () =>{
+    const onCLick = async () =>{
+        try {
+            const newChatRoomData = await API.graphql(graphqlOperation(createChatRoom,{input:{}}));
+            if(!newChatRoomData.data){
+                console.log("failed to create a chat room");
+                return;
+            }
+            const newChatRoom = newChatRoomData.data.createChatRoom;
+            await API.graphql(graphqlOperation(createChatRoomUser,{input:{userID:user.id,chatRoomID: newChatRoom.id}}))
+
+            const userInfo = await Auth.currentAuthenticatedUser();
+            await API.graphql(graphqlOperation(createChatRoomUser,{input:{userID:userInfo.attributes.sub,chatRoomID: newChatRoom.id}}))
+
+            navigation.navigate('ChatRoom',{
+                id:newChatRoom.id,
+                name:"Hardcoded name"
+            })
         
+        } catch (error) {
+            console.log(error)
+        }
     }
         return (
             <TouchableWithoutFeedback onPress={onCLick} >
