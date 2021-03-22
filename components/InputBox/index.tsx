@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, View } from 'react-native';
+import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import styles from './styles'
 import { MaterialCommunityIcons, FontAwesome5, Entypo, Fontisto, MaterialIcons } from '@expo/vector-icons';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -63,6 +63,11 @@ const InputBox = (props: { chatRoomID: any; }) => {
         }
     }
         return (
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={100}
+                style={{width:'100%'}}
+                >
             <View style={styles.container}>
                 <View style={styles.mainContainer}>
                     <FontAwesome5 name="laugh-beam" size={24} color={"grey"} />
@@ -84,6 +89,7 @@ const InputBox = (props: { chatRoomID: any; }) => {
                     </View>
                 </TouchableOpacity>
             </View>
+            </KeyboardAvoidingView>
         )
 }
 export default InputBox;

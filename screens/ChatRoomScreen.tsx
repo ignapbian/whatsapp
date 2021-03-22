@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Text, ImageBackground} from 'react-native'
+import {Text, ImageBackground, KeyboardAvoidingView, Platform} from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import { FlatList} from 'react-native-gesture-handler';
 import ChatMessage from '../components/ChatMessage';
@@ -48,15 +48,15 @@ const ChatRoomScreen = () => {
 
     console.log(route.params)
         return (
-            <ImageBackground style={{width:'100%',height:'100%'}} source={BG}>
-                <FlatList
-                    data={messages}
-                    renderItem={({item}) => <ChatMessage myId={myId} message={item} />}
-                    inverted
-                />
-                <InputBox chatRoomID={route.params.id}/>
-            </ImageBackground>
             
+                <ImageBackground style={{width:'100%',height:'100%'}} source={BG}>
+                    <FlatList
+                        data={messages}
+                        renderItem={({item}) => <ChatMessage myId={myId} message={item} />}
+                        inverted
+                    />
+                    <InputBox chatRoomID={route.params.id}/>
+                </ImageBackground>
         )
 }
 export default ChatRoomScreen;
