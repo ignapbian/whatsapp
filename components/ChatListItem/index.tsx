@@ -21,10 +21,11 @@ const ChatListItem = (props: ChatListItemProps) => {
     useEffect(()=>{
         const getOtherUser = async () =>{
             const userInfo = await Auth.currentAuthenticatedUser();
-            
             for (var i = 0; i <= chatRoom.chatRoomUsers.items.length; i++) {
-                if(chatRoom.chatRoomUsers.items[i].user.id != userInfo.attributes.sub){
-                    setOtherUser(chatRoom.chatRoomUsers.items[i].user);
+                if(chatRoom.chatRoomUsers.items){
+                    if(chatRoom.chatRoomUsers.items[i].user.id != userInfo.attributes.sub){
+                        setOtherUser(chatRoom.chatRoomUsers.items[i].user);
+                    }
                 }
               }
         }

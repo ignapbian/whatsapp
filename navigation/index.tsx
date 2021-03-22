@@ -48,13 +48,7 @@ function RootNavigator() {
         name="Root" 
         component={MainTabNavigator}
         options={{
-          title:"WhatsApp",
-          headerRight:()=>(
-            <View style={{flexDirection:'row',width:60,justifyContent:"space-between",marginRight:10}}>
-              <Octicons name="search" size={22} color={'white'}/>
-              <MaterialCommunityIcons name="dots-vertical" size={22} color={'white'}/>
-            </View>
-          )
+          title:"WhatsApp"
         }}
        />
       <Stack.Screen
@@ -62,11 +56,13 @@ function RootNavigator() {
         component={ChatRoomScreen} 
         options={({route}) => ({
           title: route.params.name,
-        headerRight:()=>(
+          headerTitleAlign:"center",
+          headerBackTitle:"Chats",
+         headerRight:()=>(
           <View style={{flexDirection:'row',width:100,justifyContent:"space-between",marginRight:10}}>
-            <MaterialIcons name="call" size={22} color={"white"}/>
+          { /** Llamar, videollamada y exportar chat  <MaterialIcons name="call" size={22} color={"white"}/>
             <FontAwesome5 name="video" size={22} color={"white"}/>
-            <MaterialCommunityIcons name="dots-vertical" size={22} color={"white"}/>
+            <MaterialCommunityIcons name="dots-vertical" size={22} color={"white"}/>*/}
           </View>
         )
       })} 
@@ -74,6 +70,10 @@ function RootNavigator() {
       <Stack.Screen 
         name="Contacts" 
         component={ContactsScreen}  
+        options={({route}) => ({
+          headerTitleAlign:"center",
+          headerBackTitle:"Chats",
+        })}
       />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>

@@ -18,17 +18,22 @@ export default function ChatsScreen() {
   const [chatRooms, setChatRooms] = useState([]);
 
   useEffect(()=>{
-    const fetchChatRooms = async () =>{
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser();
-
-        const userData = await API.graphql(graphqlOperation(getUser,{id:userInfo.attributes.sub,}))
-        setChatRooms(userData.data.getUser.chatRoomUser.items)
-      } catch (error) {
-        console.log(error)
+    const interval = setInterval(()=>{
+      const fetchChatRooms = async () =>{
+        try {
+          const userInfo = await Auth.currentAuthenticatedUser();
+  
+          const userData = await API.graphql(graphqlOperation(getUser,{id:userInfo.attributes.sub,}))
+          setChatRooms(userData.data.getUser.chatRoomUser.items)
+        } catch (error) {
+          console.log(error)
+        }
       }
-    }
-    fetchChatRooms();
+      fetchChatRooms();
+
+    },2000);
+    return () => clearInterval(interval);
+    
   },[])
 
   return (
@@ -38,6 +43,7 @@ export default function ChatsScreen() {
         renderItem={({item})=> <ChatListItem chatRoom={item.chatRoom}/>}
         keyExtractor={(item)=>item.id}
         style={{width:'100%'}}
+        extraData={chatRooms}
       />
       <NewMessageButton />
     </View>

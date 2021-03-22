@@ -31,24 +31,8 @@ export default function BottomTabNavigator() {
         },
         showIcon:true }}>
       <MainTab.Screen
-        name="Camera"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <Fontisto name="camera" color={color} size={18}/>,
-          tabBarLabel: () => null
-        }}
-      />
-      <MainTab.Screen
         name="Chats"
         component={ChatsScreen}
-      />
-      <MainTab.Screen
-        name="Status"
-        component={TabTwoNavigator}
-      />
-      <MainTab.Screen
-        name="Calls"
-        component={TabTwoNavigator}
       />
     </MainTab.Navigator>
   );

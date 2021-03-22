@@ -36,7 +36,7 @@ const ContactListItem = (props: ContactListItemProps) => {
 
             navigation.navigate('ChatRoom',{
                 id:newChatRoom.id,
-                name:"Hardcoded name"
+                name:user.name
             })
         
         } catch (error) {
