@@ -15,7 +15,7 @@ Back-End:
 
 Primeros pasos:
 
-1. Descargase el proyecto.
+1. Descargar el proyecto.
 2. Ejecute "Yarn install" ó "npm install" en la carpeta del proyecto.
 3. Una vez instalado las librerias, "Yarn start" ó "Expo start".
 
