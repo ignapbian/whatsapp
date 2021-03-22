@@ -5,7 +5,7 @@ WhatsApp es un clone de la famosa aplicación.
 Front-End:
 - React Native
 - Expo
-- Typescript
+- TypeScript
 - React NAvigation
 
 Back-End:
